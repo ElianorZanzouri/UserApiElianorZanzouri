@@ -47,7 +47,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         binding.buttonAdd.setOnClickListener(v -> {
-            if (!isErrorState()) {
+            if (!(binding.textViewFirstName.getText().toString().equals("ERROR") ||
+                    binding.textViewLastName.getText().toString().equals("ERROR") ||
+                    binding.textViewCountry.getText().toString().equals("ERROR") ||
+                    binding.textViewCity.getText().toString().equals("ERROR"))) {
                 UserData userData = new UserData();
                 userData.firstName = binding.textViewFirstName.getText().toString();
                 userData.lastName = binding.textViewLastName.getText().toString();
@@ -69,13 +72,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private boolean isErrorState() {
-        return binding.textViewFirstName.getText().toString().equals("ERROR") ||
-                binding.textViewLastName.getText().toString().equals("ERROR") ||
-                binding.textViewCountry.getText().toString().equals("ERROR") ||
-                binding.textViewCity.getText().toString().equals("ERROR");
-    }
-    private void fetchData(){
+      private void fetchData(){
         //Json http
         Retrofit retrofit = UserAPIClient.getClient();
         UserService service = retrofit.create(UserService.class);
